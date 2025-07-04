@@ -1,3 +1,4 @@
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { MapPin, Clock, Instagram, User } from "lucide-react";
@@ -6,8 +7,8 @@ const contactInfo = [
   {
     icon: MapPin,
     title: "Localização",
-    content: "Rua da Elegância, 123 - Centro",
-    subcontent: "São Paulo, SP"
+    content: "Av Guilherme Maxwell n°570",
+    subcontent: "Galeria Mix - Rio de Janeiro, RJ"
   },
   {
     icon: Clock,
@@ -24,12 +25,26 @@ const contactInfo = [
   {
     icon: User,
     title: "Contato",
-    content: "(11) 9 9999-9999",
-    subcontent: "WhatsApp disponível"
+    content: "WhatsApp",
+    subcontent: "Clique para conversar"
   }
 ];
 
 export function Contact() {
+  const handleWhatsAppClick = () => {
+    window.open('https://api.whatsapp.com/message/GUAHCVANABYKN1?autoload=1&app_absent=0', '_blank');
+  };
+
+  const handleInstagramClick = () => {
+    window.open('https://www.instagram.com/paskobarbearia/', '_blank');
+  };
+
+  const handleMapClick = () => {
+    const address = "Av Guilherme Maxwell 570, Galeria Mix, Rio de Janeiro, RJ, 21042112";
+    const encodedAddress = encodeURIComponent(address);
+    window.open(`https://www.google.com/maps/search/?api=1&query=${encodedAddress}`, '_blank');
+  };
+
   return (
     <section id="contact" className="py-20 px-4 bg-background">
       <div className="max-w-6xl mx-auto">
@@ -46,7 +61,16 @@ export function Contact() {
           {/* Contact Info */}
           <div className="space-y-6">
             {contactInfo.map((info, index) => (
-              <Card key={index} className="bg-card border-border hover:border-gold transition-all duration-300">
+              <Card 
+                key={index} 
+                className={`bg-card border-border hover:border-gold transition-all duration-300 ${
+                  (info.title === "Redes Sociais" || info.title === "Contato") ? 'cursor-pointer' : ''
+                }`}
+                onClick={() => {
+                  if (info.title === "Redes Sociais") handleInstagramClick();
+                  if (info.title === "Contato") handleWhatsAppClick();
+                }}
+              >
                 <CardHeader className="flex flex-row items-center space-y-0 pb-2">
                   <info.icon className="h-6 w-6 text-gold mr-4" />
                   <CardTitle className="text-foreground">{info.title}</CardTitle>
@@ -68,9 +92,9 @@ export function Contact() {
                   Nossa Localização
                 </h3>
                 <p className="text-muted-foreground mb-6">
-                  Estamos no coração da cidade, fácil acesso e estacionamento
+                  Galeria Mix - Rio de Janeiro, RJ
                 </p>
-                <Button variant="premium" size="lg">
+                <Button variant="premium" size="lg" onClick={handleMapClick}>
                   Ver no Google Maps
                 </Button>
               </div>
@@ -94,6 +118,7 @@ export function Contact() {
               <div 
                 key={item} 
                 className="aspect-square bg-gradient-dark rounded-lg border-2 border-border hover:border-gold transition-all duration-300 flex items-center justify-center group cursor-pointer"
+                onClick={handleInstagramClick}
               >
                 <Instagram className="h-8 w-8 text-gold group-hover:scale-110 transition-transform" />
               </div>
@@ -101,7 +126,7 @@ export function Contact() {
           </div>
           
           <div className="text-center mt-8">
-            <Button variant="premium" size="lg">
+            <Button variant="premium" size="lg" onClick={handleInstagramClick}>
               Seguir @paskobarbearia
             </Button>
           </div>
