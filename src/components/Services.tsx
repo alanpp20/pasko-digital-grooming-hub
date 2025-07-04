@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { BookingSystem } from "@/components/BookingSystem";
 
 const services = [
   {
@@ -76,9 +77,7 @@ export function Services() {
                   <span className="text-2xl font-bold text-gold">{service.price}</span>
                   <span className="text-muted-foreground">{service.duration}</span>
                 </div>
-                <Button variant="premium" className="w-full">
-                  Agendar Agora
-                </Button>
+                <BookingSystem selectedService={service.title} servicePrice={service.price} />
               </CardContent>
             </Card>
           ))}
